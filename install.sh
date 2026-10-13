@@ -1,13 +1,29 @@
 #!/usr/bin/env bash
-# Usage: ./install.sh <project-dir> <package | package:skill>...
+# Usage: ./install.sh [project-dir [package | package:skill]...]   (prompts for whatever is missing)
 # Copies skills into <project>/.agents/skills (Codex) and links .claude/skills to it (Claude Code).
 # A package with hooks also gets them merged into .claude/settings.json and .codex/hooks.json.
 # Re-running updates the installed copies; it is safe to run twice.
 set -euo pipefail
-[ $# -ge 2 ] || { sed -n 2,5p "$0" >&2; exit 1; }
 repo=$(cd "$(dirname "$0")" && pwd)
-project=$(cd "$1" && pwd)
+
+if [ $# -eq 0 ]; then
+  read -erp "Project directory [$PWD]: " dir
+  set -- "${dir:-$PWD}"
+fi
+dir=$1
 shift
+project=$(cd "${dir/#\~/$HOME}" && pwd)
+
+if [ $# -eq 0 ]; then
+  for v in "$repo"/vendor/*; do
+    echo "== $(basename "$v")"
+    ls -C "$v/skills"
+  done
+  read -erp "Install (package or package:skill, space separated): " picks
+  # Unquoted on purpose: split the answer into words.
+  set -- $picks
+fi
+[ $# -gt 0 ] || { echo "nothing to install" >&2; exit 1; }
 
 # Merge upstream hook groups into a settings file, keeping everything already there.
 # $1 target json, $2 upstream hooks json, $3 command prefix that replaces the plugin-cache path.
@@ -54,7 +70,8 @@ for arg in "$@"; do
   if [ "$arg" = "$pkg" ]; then names=$(ls "$v/skills"); else names=${arg#*:}; fi
   for n in $names; do
     [ -d "$v/skills/$n" ] || { echo "unknown skill: $pkg:$n (see vendor/$pkg/skills/)" >&2; exit 1; }
-    case $seen in *" $n "*) echo "skill $n requested twice; pick one with package:skill" >&2; exit 1 ;; esac
+    # First package named wins a clash; later ones are skipped.
+    case $seen in *" $n "*) echo "skipped $pkg:$n: a skill named $n was already installed in this run" >&2; continue ;; esac
     seen="$seen$n "
     rm -rf "${skills:?}/$n"
     cp -R "$v/skills/$n" "$skills/$n"

@@ -19,7 +19,7 @@ Central store of third-party skills and hooks, installed per project for Claude 
 ## Rules
 
 - Adapt upstream files in `install.sh`, not in `vendor/`.
-- `mattpocock` and `emilkowalski` both ship `prototype`; install fails on duplicate skill names on purpose.
+- `mattpocock` and `emilkowalski` both ship `prototype`. On a name clash, install keeps the skill from the package named first and logs the skipped one.
 - The hook merge assumes every upstream command names a `hooks/<file>.js`. Check that before adding another package with hooks.
 - After changing `install.sh`, install twice into a scratch git repo with an existing `.claude/settings.json`. Check that existing settings survive, hooks are not duplicated, and the installed SessionStart commands print ponytail's context.
 - Skills are instructions agents run with shell access: review upstream diffs before committing an update.

@@ -14,7 +14,7 @@ The skills and hooks I use with Claude Code and Codex, installed per project so 
 ./install.sh ~/Projects/my-app ponytail mattpocock:tdd emilkowalski:animate
 ```
 
-`package` installs all its skills, `package:skill` installs one. Commit the result in the project. Re-run to update.
+`package` installs all its skills, `package:skill` installs one. Run `./install.sh` with no arguments to be asked for the project and the skills. Commit the result in the project. Re-run to update.
 
 After installing hooks, open `/hooks` in Codex once to trust them.
 
