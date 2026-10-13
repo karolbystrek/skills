@@ -1,0 +1,4 @@
+# name          repo                                         folders searched for skills   [hooks=<upstream hooks json>]
+mattpocock      https://github.com/mattpocock/skills         skills/engineering skills/productivity skills/misc skills/in-progress
+ponytail        https://github.com/dietrichgebert/ponytail   skills hooks=hooks/claude-codex-hooks.json
+emilkowalski    https://github.com/emilkowalski/skills       skills
