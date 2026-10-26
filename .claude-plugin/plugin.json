@@ -1,0 +1,8 @@
+{
+  "name": "karolbystrek",
+  "description": "Karol Bystrek's personal agent skills.",
+  "author": { "name": "Karol Bystrek", "url": "https://github.com/karolbystrek" },
+  "homepage": "https://github.com/karolbystrek/skills",
+  "repository": "https://github.com/karolbystrek/skills",
+  "license": "MIT"
+}

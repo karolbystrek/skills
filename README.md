@@ -1,27 +1,21 @@
 # skills
 
-The skills and hooks I use with Claude Code and Codex, installed per project so cloud sessions get them too.
+Personal agent skills for Claude and ChatGPT/Codex.
 
-| Package | Upstream |
-|---|---|
-| `mattpocock` | https://github.com/mattpocock/skills |
-| `ponytail` (skills + hooks) | https://github.com/dietrichgebert/ponytail |
-| `emilkowalski` | https://github.com/emilkowalski/skills |
-
-## Install into a project
+## Install
 
 ```bash
-./install.sh ~/Projects/my-app ponytail mattpocock:tdd emilkowalski:animate
+# any agent, via skills.sh
+npx skills add karolbystrek/skills
+
+# Claude Code
+/plugin marketplace add karolbystrek/skills
+/plugin install karolbystrek@karolbystrek
+
+# Codex / ChatGPT
+codex plugin marketplace add karolbystrek/skills
 ```
 
-`package` installs all its skills, `package:skill` installs one. Run `./install.sh` with no arguments to be asked for the project and the skills. Commit the result in the project. Re-run to update.
+## Skills
 
-After installing hooks, open `/hooks` in Codex once to trust them.
-
-## Update to the newest upstream
-
-```bash
-./update.sh
-```
-
-Review `git diff` before committing, then re-run `install.sh` in each project.
+None yet. See [AGENTS.md](AGENTS.md) for the structure new skills follow.

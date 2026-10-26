@@ -1,0 +1,13 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "karolbystrek",
+  "description": "Karol Bystrek's personal agent skills.",
+  "owner": { "name": "Karol Bystrek", "url": "https://github.com/karolbystrek" },
+  "plugins": [
+    {
+      "name": "karolbystrek",
+      "description": "Karol Bystrek's personal agent skills.",
+      "source": "./"
+    }
+  ]
+}
