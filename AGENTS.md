@@ -20,6 +20,7 @@ skills/<skill-name>/SKILL.md      # skills; the only place skills live
 skills/<skill-name>/references/   # optional, one level deep
 skills/<skill-name>/scripts/      # optional
 skills/<skill-name>/assets/       # optional
+GLOBAL.md                         # global agent instructions; not a skill, not installed by any route, symlinked by hand (below)
 plugin.json                       # Agent Plugins 1.0.0 manifest (Codex/ChatGPT); skills/ is discovered, no skills field
 .agents/plugins/marketplace.json  # Codex marketplace, one entry, source.path "./"
 .claude-plugin/plugin.json        # Claude Code manifest
@@ -27,6 +28,17 @@ plugin.json                       # Agent Plugins 1.0.0 manifest (Codex/ChatGPT)
 ```
 
 Keep `name`, `description`, author and repo URL identical across the four manifests; change them together. Claude manifests omit `version` so every commit is an update; `plugin.json` needs one, bump it on release.
+
+## Global instructions
+
+`GLOBAL.md` holds the instructions every run should follow, in any repository. None of the install routes carry it, so on each machine symlink it from the global files of both tools:
+
+```
+ln -s <repo>/GLOBAL.md ~/.claude/CLAUDE.md
+ln -s <repo>/GLOBAL.md ~/.codex/AGENTS.md
+```
+
+Write it from the agent's point of view, agent-neutral like skills.
 
 ## Skill template
 
